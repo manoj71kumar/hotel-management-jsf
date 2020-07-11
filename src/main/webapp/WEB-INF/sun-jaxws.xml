@@ -1,0 +1,23 @@
+<endpoints
+xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime"
+version="2.0">
+<endpoint
+        name="BookingWebServiceImpl"
+        implementation="com.hotels.servlet.jaxWSDL.BookingWebServiceImpl"
+        url-pattern="/bookingService"/>
+
+<endpoint
+        name="RoomsWebServiceImpl"
+        implementation="com.hotels.servlet.jaxWSDL.RoomsWebServiceImpl"
+        url-pattern="/roomService"/>
+
+<endpoint
+        name="RoomsWebServiceImpl"
+        implementation="com.hotels.servlet.jaxWSDL.RoomsWebServiceImpl"
+        url-pattern="/userService"/>
+<endpoint
+        name="HotelBookingService"
+        implementation="com.hotels.servlet.jaxws.HotelBookingServiceImpl"
+        url-pattern="/hotelBookingService"/>
+
+</endpoints>

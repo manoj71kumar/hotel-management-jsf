@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Available Rooms</title>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1"
+          http-equiv="X-UA-Compatible"/>
+    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    <h:outputStylesheet library="css" name="style.css"/>
+    <style type="text/css">
+        .tableUpdated{
+            width:70%; !important;
+            margin: 17px 58px 0 !important;
+        }
+        .btnSpace{
+            margin: 17px;
+        }
+    </style>
+
+
+</h:head>
+<h:body>
+    <div class="container">
+        <div class="text-center text-primary"><h2><h:outputText value="Room's Detail"/></h2></div>
+        <hr/>
+        <h:form id="form" prependId="false">
+            <div class="row">
+                <div class="col-md-4">
+                    <h4 class="text-info">  <h:outputText value=" Welcome #{request.userPrincipal.name}" /> </h4>
+                    <h:commandLink action="#{navigationController.showPage}"
+                                   styleClass="btn btn-default btnSpace" value="Log Out">
+                        <f:param name="pageId" value="888"/>
+                    </h:commandLink>
+                </div>
+            </div>
+            <h:dataTable value="#{roomController.dataList}" var="rooms" rendered="#{roomController.dataList ne null}"
+                         class="table table-striped table-hover table-bordered tableUpdated"
+                         rowClasses="odd, even">
+                <h:column headerClass="text-primary">
+                    <f:facet name="header">Room ID</f:facet>
+                    <h:outputText value="#{rooms.id}" />
+                </h:column>
+                <h:column headerClass="text-primary">
+                    <f:facet name="header" >Room Type</f:facet>
+                    <h:outputText value="#{rooms.roomType}" />
+                </h:column>
+                <h:column headerClass="text-primary">
+                    <f:facet name="header">Room's Price Per Nighght</f:facet>
+                    <h:outputText value="#{rooms.pricePerNight}" />
+                </h:column>
+                <h:column headerClass="text-primary">
+                    <f:facet name="header">Room's Description</f:facet>
+                    <h:outputText value="#{rooms.description}" />
+                </h:column>
+
+                <h:column headerClass="text-primary">
+                    <f:facet name="header"> Update</f:facet>
+                    <h:commandButton action="#{roomController.update(rooms.id)}" value="Update" styleClass="btn btn-primary"/>
+
+                </h:column>
+                <h:column headerClass="text-primary">
+                    <f:facet name="header"> Delete</f:facet>
+                    <h:commandButton action="#{roomController.delete(rooms.id)}" value="Delete" styleClass="btn btn-danger"/>
+                </h:column>
+
+
+
+            </h:dataTable>
+            <div class="pager">
+                <h:commandButton value="First" action="#{roomController.pageFirst}"
+                                 disabled="#{roomController.currentPage eq 0}" />
+                <h:commandButton value="Prev" action="#{roomController.pagePrev}"
+                                 disabled="#{roomController.currentPage eq 0}" />
+                <h:outputText value="&nbsp;" escape="false" />
+                <h:commandButton value="Next" action="#{roomController.pageNext}"
+                                 disabled="#{roomController.currentPage eq roomController.totalPages-1}" />
+                <h:commandButton value="Last" action="#{roomController.pageLast}"
+                                 disabled="#{roomController.currentPage eq roomController.totalPages-1}" />
+                <br/>
+                <ui:repeat value="#{roomController.pages}" var="r" >
+                    <h:commandLink value="#{r}" actionListener="#{roomController.page}"
+                                   rendered="#{r ne roomController.currentPage}"/>
+                    <h:outputText value="&lt;b&gt;&lt;/b&gt;" escape="false"
+                                  rendered="#{r ne roomController.currentPage}" />
+                    <h:outputText value="&nbsp;" escape="false"/>
+                </ui:repeat>
+            </div>
+
+            <div class="searchbox text-center">
+                <h:outputLabel for="rowsPerPage" value="Rows Per Page" />
+                <h:inputText id="rowsPerPage" value="#{roomController.rowsPerPage}" size="4" maxlength="4" />
+                <h:commandButton value="Set" actionListener="#{roomController.pageFirst}" />
+                <h:message for="rowsPerPage" errorStyle="color: rebeccapurple"/>
+
+            </div>
+            <div>
+                <h:commandButton action="createroom.xhtml?faces-redirect=true" value="Add New Room" styleClass="btn btn-success"/>
+            </div>
+        </h:form>
+        <div class="footer">
+            <p> Created by Khalid Muhammad Farhan... </p>
+        </div>
+    </div>
+</h:body>
+</html>

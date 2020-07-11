@@ -1,0 +1,40 @@
+body {
+    background-color: #FFFFFF;
+
+}
+.menu-item {
+    font-family: Arial, Verdana, sans-serif;
+    color: #000;
+    background-color: #8c8c8c;
+    padding: 5px;
+    margin: 10px;
+}
+table.country{
+    width: 100%;
+    border-collapse: collapse;
+}
+table.country th,
+table.country td{
+    padding: 5px;
+    text-align: left;
+    font-family: Arial, Verdana, sans-serif;
+    border: 1px solid #000000;
+}
+table.country th.last,
+table.country td.sign{
+    border-right: 0;
+}
+table.country th.first,
+table.country td.name{
+    border-left: 0;
+}
+table.country th{
+    background-color: #dddddd;
+    color: #bb0000;
+}
+table.country tr.odd{
+    background-color: #ddffff;
+}
+table.country tr.odd{
+    background-color: #bfbfbb;
+}

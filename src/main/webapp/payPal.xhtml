@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+        <meta content="text/html" charset="UTF-8" http-equiv="Content-Type"/>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="css" name="style.css"/>
+        <style type="text/css">
+            .tableUpdated{
+                width:70%; !important;
+                margin: 17px 58px 0 !important;
+            }
+            .btnSpace{
+                margin-top: 20px;
+            }
+        </style>
+        <title>Paypal Page</title>
+
+
+</h:head>
+<h:body>
+    <div class="container">
+        <div class="row">
+        	<div class="col-md-12">
+        		<form method="post" action="${initParam['posturl']}">
+        			<input type="hidden" name="upload" value="1" />
+        			<input type="hidden" name="return" value="${initParam['returnurl']}" />
+        			<input type="hidden" name="cmd" value="_cart" />
+        			<input type="hidden" name="business" value="${initParam['business']}" />
+        			
+        			<input type="hidden" name="item_name_1" value="Product_1" />
+        			<input type="hidden" name="item_number_1" value="p1" />
+        			<input type="hidden" name="amount_1" value="2" />
+        			<input type="hidden" name="quantity_1" value="3" />
+        			
+        			
+        			<input type="hidden" name="item_name_2" value="Product_2" />
+        			<input type="hidden" name="item_number_2" value="p2" />
+        			<input type="hidden" name="amount_2" value="3" />
+        			<input type="hidden" name="quantity_2" value="4" />
+        			
+        			<input type="image" src="https://www.paypal.com/en_Us/i/btn/btn_xpressCheckout.gif" />
+        			
+        		</form>
+        	</div>
+   		</div>
+   	</div>
+</h:body>
+</html>
+
