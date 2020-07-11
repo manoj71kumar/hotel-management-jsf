@@ -12,6 +12,7 @@
     <properties>
         <jersey.version>2.27</jersey.version>
         <jackson.version>2.10.2</jackson.version>
+        <jdkVersion>1.8</jdkVersion>
     </properties>
     <dependencies>
         <!--hibernate-->
@@ -167,25 +168,27 @@
 
     <build>
         <plugins>
-
-            <!--Tomcat Maven -->
-            <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>2.2</version>
-                <configuration>
-                    <port>8888</port>
-                    <path>/</path>
-                </configuration>
-            </plugin>
-
-            <!-- Plugin for WAR -->
-            <plugin>
-
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.2.3</version>
-            </plugin>
+        
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals><goal>copy</goal></goals>
+                    <configuration>
+                        <artifactItems>
+                            <artifactItem>
+                                <groupId>com.heroku</groupId>
+                                <artifactId>webapp-runner</artifactId>
+                                <version>9.0.30.0</version>
+                                <destFileName>webapp-runner.jar</destFileName>
+                            </artifactItem>
+                        </artifactItems>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -209,9 +212,51 @@
                     <nohelp>true</nohelp>
                 </configuration>
             </plugin>
+            
+             <plugin>
+		      <groupId>com.heroku.sdk</groupId>
+		      <artifactId>heroku-maven-plugin</artifactId>
+		      <configuration>
+		        <processTypes>
+		          <web>java $JAVA_OPTS -cp target/classes:target/dependency/* Main</web>
+		        </processTypes>
+		      </configuration>
+		    </plugin>
+            
         </plugins>
+        
     </build>
-
-
-
+    
+    
+    <profiles>
+  <profile>
+    <id>test</id>
+    <build>
+      <plugins>
+        <plugin>
+          <groupId>com.heroku.sdk</groupId>
+          <artifactId>heroku-maven-plugin</artifactId>
+          <configuration>
+            <appName>hotel_management</appName>
+          </configuration>
+        </plugin>
+      </plugins>
+    </build>
+  </profile>
+  <profile>
+    <id>prod</id>
+    <build>
+      <plugins>
+        <plugin>
+          <groupId>com.heroku.sdk</groupId>
+          <artifactId>heroku-maven-plugin</artifactId>
+          <configuration>
+            <appName>hotel_management</appName>
+          </configuration>
+        </plugin>
+      </plugins>
+    </build>
+  </profile>
+</profiles>
+    
 </project>
